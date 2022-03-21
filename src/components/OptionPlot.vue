@@ -2,12 +2,17 @@
 <LineChart 
     :chartData="data"
 />
+<OptionPlotLimits 
+    @limits-changed="setLimits"
+/>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { LineChart } from 'vue-chart-3';
 import { Chart, registerables } from 'chart.js';
+
+import OptionPlotLimits from '@/components/OptionPlotLimits.vue';
 
 import Option from '@/structures/Option';
 import OptionCalcutalor from '@/structures/OptionCalculator';
@@ -16,11 +21,12 @@ Chart.register(...registerables);
 
 export default defineComponent({
     name: 'OptionPlot',
-    components: { LineChart },
+    components: { 
+        LineChart,
+        OptionPlotLimits
+    },
     props: {
         option: Option,
-        start: Number,
-        end: Number,
     },
     data() {
         return {
@@ -28,6 +34,16 @@ export default defineComponent({
 
             BlackScholesColor: '#ed1c5b',
             CoxRossRubinsteinColor: '#f0a754',
+
+            limits: {
+                start: 0,
+                end: 250,
+            }
+        }
+    },
+    methods: {
+        setLimits(limits) {
+            this.limits = limits;
         }
     },
     computed: {
@@ -38,7 +54,7 @@ export default defineComponent({
 
             const BlackScholesSolution = this.calculator.BlackScholes();
 
-            for (let i = this.start; i < this.end + 1; i++) {
+            for (let i = this.limits.start; i < this.limits.end + 1; i++) {
                 labels.push(i);
                 BlackScholesData.push(BlackScholesSolution);
                 CoxRossRubinsteinData.push(this.calculator.CoxRossRubinstein(i));
