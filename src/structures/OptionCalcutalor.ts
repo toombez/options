@@ -38,7 +38,7 @@ export default class OptionCalculator {
     private Ф(x: number) {
         return (1 - erf(-x / sqrt(2))) / 2;
     }
-    public B(k: number, n: number, p: number) {
+    private B(k: number, n: number, p: number) {
         let result = 0;
 
         for (let i = k; i < n; i++) {
