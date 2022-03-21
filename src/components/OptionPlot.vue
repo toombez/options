@@ -10,7 +10,7 @@ import { LineChart } from 'vue-chart-3';
 import { Chart, registerables } from 'chart.js';
 
 import Option from '@/structures/Option';
-import OptionCalcutalor from '@/structures/OptionCalcutalor';
+import OptionCalcutalor from '@/structures/OptionCalculator';
 
 Chart.register(...registerables);
 
