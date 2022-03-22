@@ -1,4 +1,5 @@
 import { combinations, erf, sqrt, pow, log, exp, round } from 'mathjs';
+import { BigNumber, bignumber } from 'mathjs';
 import Option from './Option';
 
 export default class OptionCalculator {
@@ -27,23 +28,31 @@ export default class OptionCalculator {
         const pTilda = (u * pStar) / R;
         const kStar = round((log(K / s0) - N * log(d)) / (log(u) - log(d)));
 
-        const result = s0 * this.B(kStar, N, pTilda) - K / <number>pow(R, N) * this.B(kStar, N, pStar);
+        const result = bignumber(s0)
+        .mul( this.B(kStar, N, pTilda))
+        .sub(
+            bignumber(K)
+            .div(<BigNumber>pow(bignumber(R), bignumber(N)))
+            .mul(this.B(kStar, N, pStar))
+        );
 
-        if (isNaN(result)) {
-            throw new RangeError(`Значение N слишком большое (N=${N})`);
-        }
-        return result;
+        return result.toString();
     }
 
     private Ф(x: number) {
         return (1 - erf(-x / sqrt(2))) / 2;
     }
     private B(k: number, n: number, p: number) {
-        let result = 0;
+        let result = bignumber();
 
         for (let i = k; i < n; i++) {
-            result += combinations(n, i) * <number>pow(p, i) * <number>pow(1 - p, n - i);
+            result = result.add(
+                <BigNumber>combinations(bignumber(n), bignumber(i))
+                .mul(<BigNumber>pow(bignumber(p), bignumber(i)))
+                .mul(<BigNumber>pow(bignumber(1).sub(p), bignumber(n).sub(i)))
+            )
         }
+
         return result;
     }
 }
