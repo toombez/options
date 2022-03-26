@@ -4,7 +4,7 @@ import Option from './Option';
 
 export default class OptionCalculator {
     constructor(
-        public option: Option,
+        private option: Option,
     ) {}
 
     public BlackScholes() {
@@ -54,5 +54,9 @@ export default class OptionCalculator {
         }
 
         return result;
+    }
+
+    public set Option(option: Option) {
+        this.option = option;
     }
 }
