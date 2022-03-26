@@ -1,8 +1,8 @@
 <template>
 <LineChart 
-    :chartData="data"
+    :chartData="graphData"
 />
-<OptionPlotLimits 
+<OptionGraphLimits 
     @limits-changed="setLimits"
 />
 </template>
@@ -12,7 +12,7 @@ import { defineComponent } from 'vue';
 import { LineChart } from 'vue-chart-3';
 import { Chart, registerables } from 'chart.js';
 
-import OptionPlotLimits from '@/components/OptionPlotLimits.vue';
+import OptionGraphLimits from '@/components/OptionGraphLimits.vue';
 
 import Option from '@/structures/Option';
 import OptionCalcutalor from '@/structures/OptionCalculator';
@@ -20,10 +20,10 @@ import OptionCalcutalor from '@/structures/OptionCalculator';
 Chart.register(...registerables);
 
 export default defineComponent({
-    name: 'OptionPlot',
+    name: 'OptionGraph',
     components: { 
         LineChart,
-        OptionPlotLimits
+        OptionGraphLimits
     },
     props: {
         option: Option,
@@ -47,7 +47,7 @@ export default defineComponent({
         }
     },
     computed: {
-        data() {
+        graphData() {
             const labels = [];
             const BlackScholesData = [];
             const CoxRossRubinsteinData = [];

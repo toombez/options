@@ -1,22 +1,22 @@
 <template>
 <form>
     <div>
-        <label for="plotStart">Левая граница разбиения</label>
+        <label for="graphStart">Левая граница разбиения</label>
         <input 
             type="number" 
-            name="plotStart" 
-            id="plotStart"
+            name="graphStart" 
+            id="graphStart"
             min="0"
             v-model="start"
             @change="sendLimits"
         >
     </div>
     <div>
-        <label for="plotEnd">Правая граница разбиения</label>
+        <label for="graphEnd">Правая граница разбиения</label>
         <input 
             type="number" 
-            name="plotEnd" 
-            id="plotEnd"
+            name="graphEnd" 
+            id="graphEnd"
             min="0"
             v-model="end"
             @change="sendLimits"
@@ -29,7 +29,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'OptionPlotLimits',
+    name: 'OptionGraphLimits',
     emits: ['limits-changed'],
     data() {
         return {
