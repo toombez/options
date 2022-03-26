@@ -3,9 +3,16 @@ import { BigNumber, bignumber } from 'mathjs';
 import Option from './Option';
 
 export default class OptionCalculator {
+    private CoxRossRubinsteinCache = new Map();
+
     constructor(
         private option: Option,
     ) {}
+
+    public set Option(option: Option) {
+        this.option = option;
+        this.CoxRossRubinsteinCache.clear();
+    }
 
     public BlackScholes() {
         const { s0, K, r, sigma, DeltaT: deltaT } = this.option;
@@ -28,13 +35,16 @@ export default class OptionCalculator {
         const pTilda = (u * pStar) / R;
         const kStar = round((log(K / s0) - N * log(d)) / (log(u) - log(d)));
 
-        const result = bignumber(s0)
+        const cachedResult = this.CoxRossRubinsteinCache.get(N);
+
+        const result = cachedResult ? cachedResult : bignumber(s0)
         .mul( this.B(kStar, N, pTilda))
         .sub(
             bignumber(K)
             .div(<BigNumber>pow(bignumber(R), bignumber(N)))
             .mul(this.B(kStar, N, pStar))
         );
+        if (!cachedResult) this.CoxRossRubinsteinCache.set(N, result);
 
         return result.toString();
     }
@@ -54,9 +64,5 @@ export default class OptionCalculator {
         }
 
         return result;
-    }
-
-    public set Option(option: Option) {
-        this.option = option;
     }
 }
