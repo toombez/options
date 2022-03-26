@@ -7,7 +7,7 @@
 />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { LineChart } from 'vue-chart-3';
 import { Chart, registerables } from 'chart.js';
@@ -16,6 +16,7 @@ import OptionGraphLimits from '@/components/OptionGraphLimits.vue';
 
 import Option from '@/structures/Option';
 import OptionCalcutalor from '@/structures/OptionCalculator';
+import { limits } from '@/assets/types';
 
 Chart.register(...registerables);
 
@@ -26,7 +27,10 @@ export default defineComponent({
         OptionGraphLimits
     },
     props: {
-        option: Option,
+        option: {
+            type: Option,
+            required: true
+        },
     },
     data() {
         return {
@@ -42,7 +46,7 @@ export default defineComponent({
         }
     },
     methods: {
-        setLimits(limits) {
+        setLimits(limits: limits) {
             this.limits = limits;
         }
     },

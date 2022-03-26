@@ -1,0 +1,1 @@
+export type limits = { start: number, end: number };
