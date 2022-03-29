@@ -7,7 +7,7 @@
             name="graphStart" 
             id="graphStart"
             min="0"
-            v-model="start"
+            v-model="limits.start"
             @change="sendLimits"
         >
     </div>
@@ -18,7 +18,7 @@
             name="graphEnd" 
             id="graphEnd"
             min="0"
-            v-model="end"
+            v-model="limits.end"
             @change="sendLimits"
         >
     </div>
@@ -27,24 +27,35 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { limits } from '@/assets/types';
 
 export default defineComponent({
     name: 'OptionGraphLimits',
     emits: ['limits-changed'],
+    props: {
+        initialLimits: {
+            required: false,
+            default: {
+                start: 0,
+                end: 20
+            }
+        }
+    },
+    created() {
+        this.limits = this.initialLimits;
+    },
     data() {
         return {
-            start: 0,
-            end: 250
+            limits: {
+                start: 0,
+                end: 20
+            } as limits
         }
     },
     methods: {
         sendLimits() {
-            const limits = { 
-                start: this.start,
-                end: this.end,
-            }
-            this.$emit('limits-changed', limits);
+            this.$emit('limits-changed', this.limits);
         }
-    }
+    },
 });
 </script>

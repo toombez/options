@@ -4,6 +4,7 @@
 />
 <OptionGraphLimits 
     @limits-changed="setLimits"
+    :initialLimits="limits"
 />
 </template>
 
@@ -41,7 +42,7 @@ export default defineComponent({
 
             limits: {
                 start: 0,
-                end: 250,
+                end: 30,
             }
         }
     },
