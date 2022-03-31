@@ -1,1 +1,1 @@
-export type limits = { start: number, end: number };
+export type LimitsType = { start: number, end: number };

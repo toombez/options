@@ -8,6 +8,7 @@
             id="graphStart"
             min="0"
             v-model="limits.start"
+            :max="limits.end"
             @change="sendLimits"
         >
     </div>
@@ -17,45 +18,30 @@
             type="number" 
             name="graphEnd" 
             id="graphEnd"
-            min="0"
             v-model="limits.end"
+            :min="limits.start"
             @change="sendLimits"
         >
     </div>
 </form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { limits } from '@/assets/types';
+<script lang="ts" setup>
+import { defineEmits, onMounted, ref } from 'vue';
+import { LimitsType } from '@/assets/types';
 
-export default defineComponent({
-    name: 'OptionGraphLimits',
-    emits: ['limits-changed'],
-    props: {
-        initialLimits: {
-            required: false,
-            default: {
-                start: 0,
-                end: 20
-            }
-        }
-    },
-    created() {
-        this.limits = this.initialLimits;
-    },
-    data() {
-        return {
-            limits: {
-                start: 0,
-                end: 20
-            } as limits
-        }
-    },
-    methods: {
-        sendLimits() {
-            this.$emit('limits-changed', this.limits);
-        }
-    },
+const emit = defineEmits(['limits-changed']);
+
+const limits = ref<LimitsType>({
+    start: 0,
+    end: 20
 });
+
+onMounted(() => {
+    sendLimits();
+});
+
+function sendLimits() {
+    emit('limits-changed', limits);
+}
 </script>

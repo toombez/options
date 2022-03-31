@@ -4,7 +4,6 @@
 />
 <OptionGraphLimits 
     @limits-changed="setLimits"
-    :initialLimits="limits"
 />
 </template>
 
@@ -17,7 +16,7 @@ import OptionGraphLimits from '@/components/OptionGraphLimits.vue';
 
 import Option from '@/structures/Option';
 import OptionCalcutalor from '@/structures/OptionCalculator';
-import { limits } from '@/assets/types';
+import { LimitsType } from '@/assets/types';
 
 Chart.register(...registerables);
 
@@ -47,7 +46,7 @@ export default defineComponent({
         }
     },
     methods: {
-        setLimits(limits: limits) {
+        setLimits(limits: LimitsType) {
             this.limits = limits;
         }
     },
