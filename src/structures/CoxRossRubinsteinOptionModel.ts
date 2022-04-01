@@ -1,7 +1,22 @@
+import { OptionGraphData } from "@/assets/types";
 import { BigNumber, bignumber, combinations, exp, log, pow, round, sqrt } from "mathjs";
 import OptionModel from "./OptionModel";
 
 export default class CoxRossRubinsteinOptionModel extends OptionModel {
+    public generateGraphData(N: number): OptionGraphData {
+        const data: OptionGraphData = {
+            call: [],
+            put: [],
+        };
+
+        for (let i = 0; i < N; i++) {
+            data.call.push(this.calculateCallPrice(N));
+            data.put.push(this.calculatePutPrice(N));
+        }
+
+        return data;
+    }
+
     public calculateCallPrice(N: number): BigNumber {
         const cachedResult = this.cache.get(N);
         if (cachedResult) return cachedResult;

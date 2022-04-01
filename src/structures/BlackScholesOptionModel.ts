@@ -1,7 +1,22 @@
+import { OptionGraphData } from "@/assets/types";
 import { erf, exp, log, pow, sqrt } from "mathjs";
 import OptionModel from "./OptionModel";
 
 export default class BlackScholesOptionModel extends OptionModel {
+    public generateGraphData(N: number): OptionGraphData {
+        const data: OptionGraphData = {
+            call: [],
+            put: [],
+        };
+
+        for (let i = 0; i < N; i++) {
+            data.call.push(this.calculateCallPrice());
+            data.put.push(this.calculatePutPrice());
+        }
+
+        return data;
+    }
+
     public calculateCallPrice(): number {
         const { s0, K, r, sigma, DeltaT: T } = this.option;
         const mu = r + <number>pow(sigma, 2) / 2;

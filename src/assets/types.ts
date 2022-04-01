@@ -7,3 +7,8 @@ export interface IOptionOptions {
     sigma: number,
     T: Date,
 }
+
+export type OptionGraphData = {
+    call: unknown[],
+    put: unknown[],
+}
