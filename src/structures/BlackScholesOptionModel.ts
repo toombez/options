@@ -10,8 +10,8 @@ export default class BlackScholesOptionModel extends OptionModel {
         };
 
         for (let i = 0; i < N; i++) {
-            data.call.push(this.calculateCallPrice());
-            data.put.push(this.calculatePutPrice());
+            data.call.push(this.calculateCallPrice().toString());
+            data.put.push(this.calculatePutPrice().toString());
         }
 
         return data;

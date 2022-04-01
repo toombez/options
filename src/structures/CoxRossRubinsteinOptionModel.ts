@@ -10,8 +10,8 @@ export default class CoxRossRubinsteinOptionModel extends OptionModel {
         };
 
         for (let i = 0; i < N; i++) {
-            data.call.push(this.calculateCallPrice(N));
-            data.put.push(this.calculatePutPrice(N));
+            data.call.push(this.calculateCallPrice(i).toFixed(15).toString());
+            data.put.push(this.calculatePutPrice(i).toFixed(15).toString());
         }
 
         return data;
