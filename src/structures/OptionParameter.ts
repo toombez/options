@@ -27,8 +27,6 @@ export default abstract class OptionParameter<T extends string | number> {
         return this.type;
     }
 
-    public abstract get Value(): number | string;
-    public abstract set Value(value: number | string);
     protected abstract generateID(): string;
     protected abstract increaseCount(): void;
 }
