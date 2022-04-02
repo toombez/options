@@ -31,6 +31,16 @@ export default abstract class OptionParameter<T extends string | number> {
     public abstract set Value(value: number | string);
     protected abstract generateID(): string;
     protected abstract increaseCount(): void;
+}
 
+export class NumberOptionParameter extends OptionParameter<number> {
+    protected readonly type: string = 'number';
+
+    protected generateID(): string {
+        return `${this.name}-parameter-${NumberOptionParameter.count}`;
+    }
+    protected increaseCount(): void {
+        NumberOptionParameter.count++;
+    }
 
 }
