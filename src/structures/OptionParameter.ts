@@ -42,5 +42,16 @@ export class NumberOptionParameter extends OptionParameter<number> {
     protected increaseCount(): void {
         NumberOptionParameter.count++;
     }
+}
+
+export class DateOptionParameter extends OptionParameter<string> {
+    protected readonly type = 'date';
+
+    protected generateID(): string {
+        return `${this.name}-parameter-${DateOptionParameter.count}`;
+    }
+    protected increaseCount(): void {
+        DateOptionParameter.count++;
+    }
 
 }
