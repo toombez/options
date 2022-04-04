@@ -4,6 +4,7 @@ export default abstract class OptionParameter<T extends string | number> {
     protected static count = 1;
     protected abstract readonly type: string;
 
+    public readonly displayedName!: string;
     public readonly name!: string;
     public readonly description?: string;
     private id!: string;

@@ -1,6 +1,8 @@
 <template>
 <div>
-    <label :for="parameter?.ID">{{ parameter?.description }} ({{ parameter?.name }})</label>
+    <label :for="parameter?.ID">
+        {{ parameter?.description }} ({{ parameter?.displayedName }})
+    </label>
     <input
         :type="parameter?.Type"
         :min="parameter?.min"

@@ -20,4 +20,5 @@ export interface IOptionParameterOptions {
     min?: number | string;
     max?: number | string;
     step?: number;
+    displayedName: string;
 }
