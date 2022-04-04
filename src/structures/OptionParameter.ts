@@ -27,6 +27,7 @@ export default abstract class OptionParameter<T extends string | number> {
         return this.type;
     }
 
+    public abstract formatValue(): number | Date;
     protected abstract generateID(): string;
     protected abstract increaseCount(): void;
 }
@@ -40,6 +41,9 @@ export class NumberOptionParameter extends OptionParameter<number> {
     protected increaseCount(): void {
         NumberOptionParameter.count++;
     }
+    public formatValue(): number {
+        return this.value;
+    }
 }
 
 export class DateOptionParameter extends OptionParameter<string> {
@@ -51,5 +55,7 @@ export class DateOptionParameter extends OptionParameter<string> {
     protected increaseCount(): void {
         DateOptionParameter.count++;
     }
-
+    public formatValue(): number | Date {
+        return new Date(this.value);
+    }
 }
