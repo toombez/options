@@ -4,13 +4,8 @@
         v-for="(parameter, index) in optionParameters.values()"
         :key="index"
         :parameter="(parameter as OptionParameter<number | string>)"
+        @change="sendOption"
     />
-    <button 
-        type="submit"
-        @click.prevent="sendOption"
-    >
-        Обновить опцион
-    </button>
 </form>
 </template>
 
