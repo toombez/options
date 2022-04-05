@@ -1,6 +1,6 @@
 import { MathType } from "mathjs";
 import { OptionGraphData } from '@/assets/types';
-import Option from "./Option";
+import Option from "../Option";
 
 export default abstract class {
     constructor(
