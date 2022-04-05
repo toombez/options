@@ -27,10 +27,14 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, onMounted, ref } from 'vue';
+import { defineProps, PropType, defineEmits, onMounted, ref } from 'vue';
 import { LimitsType } from '@/assets/types';
 
-const emit = defineEmits(['limits-changed']);
+defineProps({
+    modelValue: Object as PropType<LimitsType>
+});
+
+const emit = defineEmits(['update:modelValue']);
 
 const limits = ref<LimitsType>({
     start: 0,
@@ -42,6 +46,6 @@ onMounted(() => {
 });
 
 function sendLimits() {
-    emit('limits-changed', limits);
+    emit('update:modelValue', limits);
 }
 </script>
