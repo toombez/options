@@ -7,6 +7,9 @@ export default class BlackScholesOptionModel extends OptionModel {
         const data: OptionGraphData = {
             call: [],
             put: [],
+            label: "Модель Блэка-Шоулза",
+            lineColor: "#ed1c5b",
+            pointStyle: "line"
         };
 
         for (let i = 0; i < N; i++) {

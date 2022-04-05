@@ -9,6 +9,9 @@ export interface IOptionOptions {
 }
 
 export type OptionGraphData = {
+    label: string,
+    lineColor: string,
+    pointStyle: string,
     call: unknown[],
     put: unknown[],
 }

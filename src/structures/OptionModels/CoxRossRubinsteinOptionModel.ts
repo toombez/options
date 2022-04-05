@@ -7,6 +7,9 @@ export default class CoxRossRubinsteinOptionModel extends OptionModel {
         const data: OptionGraphData = {
             call: [],
             put: [],
+            label: "Модель Кокса–Росса–Рубинштейна",
+            lineColor: "#f0a754",
+            pointStyle: "rectRot"
         };
 
         for (let i = 0; i < N; i++) {
