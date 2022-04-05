@@ -46,6 +46,6 @@ onMounted(() => {
 });
 
 function sendLimits() {
-    emit('update:modelValue', limits);
+    emit('update:modelValue', limits.value);
 }
 </script>
