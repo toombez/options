@@ -20,6 +20,27 @@ const parameters = computed(() => (
         props.context?.parameters.includes(parameter.name as OptionParameters)
     ))
 ))
+
+function dateAfterDays(day: number) {
+    const now = new Date()
+    
+    const targetDate = new Date(
+        now.getFullYear(), 
+        now.getMonth(), 
+        now.getDate() + day
+    )
+    return targetDate
+}
+function formattedDate(date: Date) {
+    const formatter = Intl.DateTimeFormat('ru', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    })
+
+    const formattedDate = formatter.format(date).split('.').reverse().join('-')
+    return formattedDate
+}
 </script>
 
 <template>
