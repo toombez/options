@@ -10,6 +10,23 @@ export enum OptionParameters {
     d = 'd'
 }
 
+export enum ParameterTypes {
+    number = 'number',
+    date = 'date',
+}
+
+export interface IOptionParameter {
+    type: ParameterTypes;
+
+    label: string;
+    name: string;
+    description?: string;
+    
+    min?: number;
+    max?: number;
+    step?: number;
+}
+
 export interface IOptionOptions {
     s0: number,
     K: number
