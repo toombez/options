@@ -1,5 +1,15 @@
 export type LimitsType = { start: number, end: number };
 
+export enum OptionParameters {
+    S = 'S',
+    K = 'K',
+    T = 'T',
+    r = 'r',
+    sigma = 'sigma',
+    u = 'u',
+    d = 'd'
+}
+
 export interface IOptionOptions {
     s0: number,
     K: number
