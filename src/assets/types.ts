@@ -3,12 +3,52 @@ export interface ILimits {
     end: number;
 }
 
-export interface IOptionOptions {
-    s0: number,
-    K: number
-    r: number
-    sigma: number,
-    T: Date,
+export enum DateOptionParameters {
+    T = 'T'
+}
+
+export enum NumberOptionParameters {
+    S = 'S',
+    K = 'K',
+    r = 'r',
+    sigma = 'sigma',
+    u = 'u',
+    d = 'd'
+}
+
+// export const OptionParameters = Object.assign({}, DateOptionParameters, NumberOptionParameters)
+export const OptionParameters = { ...DateOptionParameters, ...NumberOptionParameters}
+export type OptionParameters = DateOptionParameters | NumberOptionParameters
+
+export enum ParameterTypes {
+    number = 'number',
+    date = 'date',
+}
+
+export interface IOptionParameter {
+    type: ParameterTypes;
+
+    label: string;
+    name: string;
+    description?: string;
+    
+    min?: number;
+    max?: number;
+    step?: number;
+
+    default: number;
+}
+
+export interface IOption {
+    S: number;
+    K: number;
+
+    r?: number;
+    sigma?: number;
+    T?: Date;
+
+    u?: number;
+    d?: number;
 }
 
 export type OptionGraphData = {
