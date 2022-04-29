@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { FormKitFrameworkContext } from '@formkit/core'
-import { defineProps, onBeforeMount, PropType } from 'vue'
-import { ref } from '@vue/reactivity';
+import { defineProps, onBeforeMount, PropType, watch } from 'vue'
+import { computed, ref } from '@vue/reactivity';
 
-import { IOption, IOptionParameter, OptionParameters, ParameterTypes } from '@/assets/types';
+import { DateOptionParameters, IOption, IOptionParameter, NumberOptionParameters, OptionParameters, ParameterTypes } from '@/assets/types';
 import ParametersSettings from '@/assets/JSON/ParametersSettings.json'
 
 interface optionFormContext extends FormKitFrameworkContext {
@@ -49,6 +49,25 @@ const rawOption = ref<Partial<IRawOption>>({})
 
 onBeforeMount(() => {
     generateRaw()
+})
+
+
+const option = computed<Partial<IOption>>(() => {
+    const resultOption: Partial<IOption> = {}
+    for (let parameter of parameters.value) {
+        if (parameter.type === ParameterTypes.date) {
+            const dateKey = parameter.name as DateOptionParameters
+            resultOption[dateKey] = new Date(rawOption.value[dateKey] as string)
+        } else {
+            const numberKey = parameter.name as NumberOptionParameters
+            resultOption[numberKey] = Number(rawOption.value[numberKey])
+        }
+    }
+    return resultOption
+})
+
+watch(rawOption.value, () => {
+    props.context?.node.input(option)
 })
 
 function generateRaw() {

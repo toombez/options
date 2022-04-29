@@ -1,14 +1,21 @@
 export type LimitsType = { start: number, end: number };
 
-export enum OptionParameters {
+export enum DateOptionParameters {
+    T = 'T'
+}
+
+export enum NumberOptionParameters {
     S = 'S',
     K = 'K',
-    T = 'T',
     r = 'r',
     sigma = 'sigma',
     u = 'u',
     d = 'd'
 }
+
+// export const OptionParameters = Object.assign({}, DateOptionParameters, NumberOptionParameters)
+export const OptionParameters = { ...DateOptionParameters, ...NumberOptionParameters}
+export type OptionParameters = DateOptionParameters | NumberOptionParameters
 
 export enum ParameterTypes {
     number = 'number',
@@ -29,12 +36,16 @@ export interface IOptionParameter {
     default: number;
 }
 
-export interface IOptionOptions {
-    s0: number,
-    K: number
-    r: number
-    sigma: number,
-    T: Date,
+export interface IOption {
+    S: number;
+    K: number;
+
+    r?: number;
+    sigma?: number;
+    T?: Date;
+
+    u?: number;
+    d?: number;
 }
 
 export type OptionGraphData = {
