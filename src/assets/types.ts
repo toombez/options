@@ -1,4 +1,7 @@
-export type LimitsType = { start: number, end: number };
+export interface ILimits {
+    start: number;
+    end: number;
+}
 
 export interface IOptionOptions {
     s0: number,

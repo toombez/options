@@ -27,7 +27,7 @@ import { Chart, ChartData, registerables } from 'chart.js';
 import GraphLimits from '@/components/GraphLimits.vue';
 import OptionCreatorForm from '@/components/OptionCreatorForm.vue';
 import { computed, ref } from '@vue/reactivity';
-import { LimitsType } from '@/assets/types';
+import { ILimits } from '@/assets/types';
 import Option from '@/structures/Option';
 import OptionModel from '@/structures/OptionModels/OptionModel';
 
@@ -40,7 +40,7 @@ const props = defineProps({
     >
 });
 
-let limits = ref<LimitsType>();
+let limits = ref<ILimits>();
 let option = ref<Option>();
 
 let models: (OptionModel)[] = [];
