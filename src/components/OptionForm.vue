@@ -56,9 +56,16 @@ function generateRaw() {
         const value = (parameter.type === ParameterTypes.date) ?
             formattedDate(dateAfterDays(parameter.default)) :
             parameter.default.toString()
-        
+
         rawOption.value[parameter.name as OptionParameters] = value
     }
+}
+function parameterMin(parameter: IOptionParameter) {
+    const value =  parameter.type === ParameterTypes.date ?
+        formattedDate(dateAfterDays(parameter.min || 0)) :
+        parameter.min
+    
+    return value
 }
 function dateAfterDays(day: number) {
     const now = new Date()
@@ -93,7 +100,7 @@ function formattedDate(date: Date) {
     :help="parameter.description"
 
     :step="parameter.step"
-    :min="parameter.min"
+    :min="parameterMin(parameter)"
     :max="parameter.max"
 
     v-model="rawOption[parameter.name as OptionParameters]"
