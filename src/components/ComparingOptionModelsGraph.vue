@@ -8,9 +8,7 @@
     :chartData="graphData" 
 />
 
-<GraphLimits 
-    v-model="limits"
-/>
+<FormKit type="limits" v-model="limits" />
 </template>
 
 <script lang="ts" setup>
