@@ -12,6 +12,8 @@ export default abstract class OptionModel {
 
     public set Option(option: IOptionForModel) {
         this.option = option
+
+        this.clearCache()
     }
     public get Option(): IOptionForModel {
         return this.option
@@ -24,7 +26,7 @@ export default abstract class OptionModel {
         const differenceInDays = differenceInTime / (1000 * 3600 * 24)
         return differenceInDays / OptionModel.DAYS_PER_YEAR
     }
-    private cache: OptionModelCache = {
+    protected cache: OptionModelCache = {
         call: new Map<string, MathType>(),
         put: new Map<string, MathType>()
     }
