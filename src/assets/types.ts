@@ -90,6 +90,6 @@ export interface IOptionForModel {
 }
 
 export enum OptionPrice {
-    call = 'call',
-    put = 'put'
+    call = 'колл',
+    put = 'пут'
 }
