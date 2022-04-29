@@ -76,10 +76,18 @@ export interface OptionModelCache {
     put: Map<string, MathType>;
 }
 
-export interface OptionModel {
+export interface IOptionModel {
     Option: IOption;
     Cache?: OptionModelCache;
 
     callPrice(...args: unknown[]): MathType;
     putPrice(...args: unknown[]): MathType;
+}
+
+export interface IOptionForModel {
+    S: number;
+    K: number;
+    sigma: number;
+    r: number;
+    T: Date;
 }
