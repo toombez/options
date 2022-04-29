@@ -3,6 +3,8 @@ import { erf, exp, log, pow, sqrt } from "mathjs"
 import OptionModel from "@/structures/OptionModel"
 
 export default class BlackScholesOptionModel extends OptionModel implements IOptionModel {
+    public name = 'Модель Блэка—Шоулза';
+
     callPrice(): number {
         const cachedValue = this.cache.call.get('0')
         if (cachedValue) {

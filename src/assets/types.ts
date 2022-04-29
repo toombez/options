@@ -75,6 +75,7 @@ export interface OptionModelCache {
 }
 
 export interface IOptionModel {
+    name: string;
     Option: IOption;
     Cache?: OptionModelCache;
 

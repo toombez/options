@@ -4,7 +4,9 @@ export default abstract class OptionModel {
     protected static readonly DAYS_PER_YEAR = 360;
 
     protected option!: IOptionForModel;
-
+    
+    abstract readonly name: string;
+    
     constructor(option: IOptionForModel) {
         this.Option = option
     }

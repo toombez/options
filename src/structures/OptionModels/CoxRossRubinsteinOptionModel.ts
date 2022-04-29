@@ -3,6 +3,8 @@ import { BigNumber, bignumber, combinations, exp, log, pow, round, sqrt } from "
 import OptionModel from "@/structures/OptionModel"
 
 export default class CoxRossRubinsteinOptionModel extends OptionModel implements IOptionModel {
+    public name = 'Модель Кокса-Росса-Рубинштейна';
+
     callPrice(n: number): number {
         const cachedResult = this.cache.call.get(n.toString())
         if (cachedResult) {
@@ -16,6 +18,10 @@ export default class CoxRossRubinsteinOptionModel extends OptionModel implements
         const d = 1 / u
         const p1 = (R - d) / (u - d)
         const p2 = (u * p1) / R
+        /** TODO (fix problem with k1):
+         *  k1 > 0 not for every n value
+         *  Model can set minimal n for it or throw error
+         */
         const k1 = round((log(K / S) - n * log(d)) / (log(u) - log(d)))
 
         const result = bignumber(S)
