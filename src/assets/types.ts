@@ -1,5 +1,3 @@
-import { MathType } from "mathjs";
-
 export interface ILimits {
     start: number;
     end: number;
@@ -72,16 +70,16 @@ export interface IOptionParameterOptions {
 }
 
 export interface OptionModelCache {
-    call: Map<string, MathType>;
-    put: Map<string, MathType>;
+    call: Map<string, number>;
+    put: Map<string, number>;
 }
 
 export interface IOptionModel {
     Option: IOption;
     Cache?: OptionModelCache;
 
-    callPrice(...args: unknown[]): MathType;
-    putPrice(...args: unknown[]): MathType;
+    callPrice(...args: unknown[]): number;
+    putPrice(...args: unknown[]): number;
 }
 
 export interface IOptionForModel {

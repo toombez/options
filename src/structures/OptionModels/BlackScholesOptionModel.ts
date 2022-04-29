@@ -1,9 +1,9 @@
 import { IOptionModel } from "@/assets/types"
-import { erf, exp, log, MathType, pow, sqrt } from "mathjs"
+import { erf, exp, log, pow, sqrt } from "mathjs"
 import OptionModel from "@/structures/OptionModel"
 
 export default class BlackScholesOptionModel extends OptionModel implements IOptionModel {
-    callPrice(): MathType {
+    callPrice(): number {
         const cachedValue = this.cache.call.get('0')
         if (cachedValue) {
             return cachedValue
@@ -20,7 +20,7 @@ export default class BlackScholesOptionModel extends OptionModel implements IOpt
         return result
     }
 
-    putPrice(): MathType {
+    putPrice(): number {
         const cachedValue = this.cache.put.get('0')
         if (cachedValue) {
             return cachedValue
@@ -38,7 +38,7 @@ export default class BlackScholesOptionModel extends OptionModel implements IOpt
         return result
     }
 
-    private Ф(x: number) {
+    private Ф(x: number): number {
         return (1 - erf(-x / sqrt(2))) / 2;
     }
 }

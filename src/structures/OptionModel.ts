@@ -27,8 +27,8 @@ export default abstract class OptionModel {
         return differenceInDays / OptionModel.DAYS_PER_YEAR
     }
     protected cache: OptionModelCache = {
-        call: new Map<string, MathType>(),
-        put: new Map<string, MathType>()
+        call: new Map<string, number>(),
+        put: new Map<string, number>()
     }
     protected clearCache() {
         this.cache.call = new Map()
