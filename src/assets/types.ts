@@ -25,6 +25,8 @@ export interface IOptionParameter {
     min?: number;
     max?: number;
     step?: number;
+
+    default: number;
 }
 
 export interface IOptionOptions {

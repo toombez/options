@@ -7,7 +7,7 @@ import { IOption, IOptionParameter, OptionParameters, ParameterTypes } from '@/a
 import ParametersSettings from '@/assets/JSON/ParametersSettings.json'
 
 interface optionFormContext extends FormKitFrameworkContext {
-    parameters: OptionParameters[]
+    parameters?: OptionParameters[]
 }
 const props = defineProps({
     context: {
@@ -27,11 +27,23 @@ interface IRawOption {
     d?: string;
 }
 
-const parameters = computed(() => (
-    (ParametersSettings as IOptionParameter[]).filter(parameter => (
-        props.context?.parameters.includes(parameter.name as OptionParameters)
-    ))
-))
+const parameters = computed(() => {
+    const tempParameters: OptionParameters[] = [OptionParameters.S, OptionParameters.K]
+
+    if (props.context?.parameters) {
+        props.context?.parameters.forEach(parameter => {
+            if (tempParameters.includes(parameter)) return
+            tempParameters.push(parameter)
+        })
+    }
+    
+    const resultParameters = (ParametersSettings as IOptionParameter[])
+        .filter(parameter => 
+            tempParameters.includes(parameter.name as OptionParameters)
+        )
+
+    return resultParameters
+})
 
 const rawOption = ref<Partial<IRawOption>>({})
 
