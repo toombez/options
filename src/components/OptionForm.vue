@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { FormKitFrameworkContext } from '@formkit/core'
-import { defineProps, PropType } from 'vue'
-import { computed } from '@vue/reactivity';
+import { defineProps, onBeforeMount, PropType } from 'vue'
+import { ref } from '@vue/reactivity';
 
-import { IOptionParameter, OptionParameters } from '@/assets/types';
+import { IOption, IOptionParameter, OptionParameters, ParameterTypes } from '@/assets/types';
 import ParametersSettings from '@/assets/JSON/ParametersSettings.json'
 
 interface optionFormContext extends FormKitFrameworkContext {
@@ -15,12 +15,39 @@ const props = defineProps({
     }
 })
 
+interface IRawOption {
+    S: string;
+    K: string;
+
+    r?: string;
+    sigma?: string;
+    T?: string;
+
+    u?: string;
+    d?: string;
+}
+
 const parameters = computed(() => (
     (ParametersSettings as IOptionParameter[]).filter(parameter => (
         props.context?.parameters.includes(parameter.name as OptionParameters)
     ))
 ))
 
+const rawOption = ref<Partial<IRawOption>>({})
+
+onBeforeMount(() => {
+    generateRaw()
+})
+
+function generateRaw() {
+    for (let parameter of parameters.value) {
+        const value = (parameter.type === ParameterTypes.date) ?
+            formattedDate(dateAfterDays(parameter.default)) :
+            parameter.default.toString()
+        
+        rawOption.value[parameter.name as OptionParameters] = value
+    }
+}
 function dateAfterDays(day: number) {
     const now = new Date()
     
@@ -56,5 +83,7 @@ function formattedDate(date: Date) {
     :step="parameter.step"
     :min="parameter.min"
     :max="parameter.max"
+
+    v-model="rawOption[parameter.name as OptionParameters]"
 />
 </template>
