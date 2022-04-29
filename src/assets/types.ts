@@ -51,12 +51,10 @@ export interface IOption {
     d?: number;
 }
 
-export type OptionGraphData = {
-    label: string,
-    lineColor: string,
-    pointStyle: string,
-    call: unknown[],
-    put: unknown[],
+export interface IOptionModelGraphData {
+    label: string;
+    callPrices: number[];
+    putPrices: number[];
 }
 
 export interface IOptionParameterOptions {
@@ -89,4 +87,9 @@ export interface IOptionForModel {
     sigma: number;
     r: number;
     T: Date;
+}
+
+export enum OptionPrice {
+    call = 'call',
+    put = 'put'
 }
