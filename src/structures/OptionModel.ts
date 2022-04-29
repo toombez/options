@@ -1,5 +1,4 @@
 import { OptionModelCache, IOptionForModel } from "@/assets/types";
-import { MathType } from "mathjs";
 
 export default abstract class OptionModel {
     protected static readonly DAYS_PER_YEAR = 360;
