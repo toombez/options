@@ -8,7 +8,7 @@ const props = defineProps({
     context: Object as PropType<FormKitFrameworkContext>
 })
 
-const price = ref()
+const price = ref<OptionPrice[]>([])
 
 onMounted(() => {
     props.context?.node.input(price)
