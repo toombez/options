@@ -35,7 +35,7 @@ export default abstract class OptionCalculator {
             model.putPrice
 
         for (let index = 0; index < graphLength; index++) {
-            data.push(dataFunction.bind(model)(graphLength))
+            data.push(dataFunction.bind(model)(index))
         }
 
         return data
