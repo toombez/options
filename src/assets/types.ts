@@ -51,10 +51,10 @@ export interface IOption {
     d?: number;
 }
 
-export interface IOptionModelGraphData {
-    label: string;
-    callPrices: number[];
-    putPrices: number[];
+export interface IComparingOptionGraphData {
+    modelName: string;
+    priceType: OptionPrice;
+    data: number[];
 }
 
 export interface IOptionParameterOptions {
