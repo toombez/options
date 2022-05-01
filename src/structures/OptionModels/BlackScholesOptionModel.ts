@@ -1,47 +1,46 @@
-import { OptionGraphData } from "@/assets/types";
-import { erf, exp, log, pow, sqrt } from "mathjs";
-import OptionModel from "./OptionModel";
+import { IOptionModel } from "@/assets/types"
+import { erf, exp, log, pow, sqrt } from "mathjs"
+import OptionModel from "@/structures/OptionModel"
 
-export default class BlackScholesOptionModel extends OptionModel {
-    public generateGraphData(N: number): OptionGraphData {
-        const data: OptionGraphData = {
-            call: [],
-            put: [],
-            label: "Модель Блэка-Шоулза",
-            lineColor: "#ed1c5b",
-            pointStyle: "line"
-        };
+export default class BlackScholesOptionModel extends OptionModel implements IOptionModel {
+    public name = 'Модель Блэка—Шоулза';
 
-        for (let i = 0; i < N; i++) {
-            data.call.push(this.calculateCallPrice().toString());
-            data.put.push(this.calculatePutPrice().toString());
+    callPrice(): number {
+        const cachedValue = this.cache.call.get('0')
+        if (cachedValue) {
+            return cachedValue
         }
 
-        return data;
+        const deltaT = this.OptionDeltaT
+        const { S, K, r, sigma } = this.option
+        const mu = r + <number>pow(sigma, 2) / 2
+        const d1 = (log(S / K) + mu * deltaT) / (sigma * sqrt(deltaT))
+        const d2 = d1 - sigma * sqrt(deltaT)
+
+        const result = S * this.Ф(d1) - K * exp(-r * deltaT) * this.Ф(d2)
+        this.cache.call.set('0', result)
+        return result
     }
 
-    public calculateCallPrice(): number {
-        const { s0, K, r, sigma, DeltaT: T } = this.option;
-        const mu = r + <number>pow(sigma, 2) / 2;
+    putPrice(): number {
+        const cachedValue = this.cache.put.get('0')
+        if (cachedValue) {
+            return cachedValue
+        }
 
-        const d1 = (log(s0 / K) + mu * T) / (sigma * sqrt(T));
-        const d2 = d1 - sigma * sqrt(T);
+        const deltaT = this.OptionDeltaT
+        const { S, K, r, sigma } = this.option
+        const mu = r + <number>pow(sigma, 2) / 2
 
-        const result = s0 * this.Ф(d1) - K * exp(-r * T) * this.Ф(d2);
-        return result;
-    }
-    public calculatePutPrice(): number {
-        const { s0, K, r, sigma, DeltaT: T } = this.option;
-        const mu = r + <number>pow(sigma, 2) / 2;
+        const d1 = (log(S / K) + mu * deltaT) / (sigma * sqrt(deltaT))
+        const d2 = d1 - sigma * sqrt(deltaT)
 
-        const d1 = (log(s0 / K) + mu * T) / (sigma * sqrt(T));
-        const d2 = d1 - sigma * sqrt(T);
-
-        const result = K * exp(-r * T) * this.Ф(-d2) - s0 * this.Ф(-d1);
-        return result;
+        const result = K * exp(-r * deltaT) * this.Ф(-d2) - S * this.Ф(-d1)
+        this.cache.put.set('0', result)
+        return result
     }
 
-    private Ф(x: number) {
+    private Ф(x: number): number {
         return (1 - erf(-x / sqrt(2))) / 2;
     }
 }

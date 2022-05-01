@@ -26,6 +26,7 @@ onBeforeMount(() => {
     type="number" 
     step="1" 
     min="0" 
+    :max="limits.end"
     v-model.number="limits.start" 
 />
 <FormKit

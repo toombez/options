@@ -51,12 +51,10 @@ export interface IOption {
     d?: number;
 }
 
-export type OptionGraphData = {
-    label: string,
-    lineColor: string,
-    pointStyle: string,
-    call: unknown[],
-    put: unknown[],
+export interface IComparingOptionGraphData {
+    modelName: string;
+    priceType: OptionPrice;
+    data: number[];
 }
 
 export interface IOptionParameterOptions {
@@ -67,4 +65,31 @@ export interface IOptionParameterOptions {
     max?: number | string;
     step?: number;
     displayedName: string;
+}
+
+export interface OptionModelCache {
+    call: Map<string, number>;
+    put: Map<string, number>;
+}
+
+export interface IOptionModel {
+    name: string;
+    Option: IOption;
+    Cache?: OptionModelCache;
+
+    callPrice(...args: unknown[]): number;
+    putPrice(...args: unknown[]): number;
+}
+
+export interface IOptionForModel {
+    S: number;
+    K: number;
+    sigma: number;
+    r: number;
+    T: Date;
+}
+
+export enum OptionPrice {
+    call = 'колл',
+    put = 'пут'
 }

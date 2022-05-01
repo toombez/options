@@ -1,75 +1,62 @@
-import { OptionGraphData } from "@/assets/types";
+import { IOptionModel } from "@/assets/types"
 import { BigNumber, bignumber, combinations, exp, log, pow, round, sqrt } from "mathjs";
-import OptionModel from "./OptionModel";
+import OptionModel from "@/structures/OptionModel"
 
-export default class CoxRossRubinsteinOptionModel extends OptionModel {
-    public generateGraphData(N: number): OptionGraphData {
-        const data: OptionGraphData = {
-            call: [],
-            put: [],
-            label: "Модель Кокса–Росса–Рубинштейна",
-            lineColor: "#f0a754",
-            pointStyle: "rectRot"
-        };
+export default class CoxRossRubinsteinOptionModel extends OptionModel implements IOptionModel {
+    public name = 'Модель Кокса-Росса-Рубинштейна';
 
-        for (let i = 0; i < N; i++) {
-            data.call.push(this.calculateCallPrice(i).toFixed(15).toString());
-            data.put.push(this.calculatePutPrice(i).toFixed(15).toString());
+    callPrice(n: number): number {
+        const cachedResult = this.cache.call.get(n.toString())
+        if (cachedResult) {
+            return cachedResult
         }
 
-        return data;
-    }
-
-    public calculateCallPrice(N: number): BigNumber {
-        const cachedResult = this.cache.get(N);
-        if (cachedResult) return cachedResult;
-
-        const { K, s0, DeltaT: T, sigma, r } = this.option;
-        const deltaT = T / N;
-        const R = exp(r * deltaT);
-        const u = exp(sigma * sqrt(deltaT));
-        const d = 1 / u;
-
-        const p1 = (R - d) / (u - d);
-        const p2 = (u * p1) / R;
+        const { K, S, sigma, r } = this.option
+        const deltaT = this.OptionDeltaT / n
+        const R = exp(r * deltaT)
+        const u = exp(sigma * sqrt(deltaT))
+        const d = 1 / u
+        const p1 = (R - d) / (u - d)
+        const p2 = (u * p1) / R
         /** TODO (fix problem with k1):
          *  k1 > 0 not for every n value
          *  Model can set minimal n for it or throw error
          */
-        const k1 = round((log(K / s0) - N * log(d)) / (log(u) - log(d)));
+        const k1 = round((log(K / S) - n * log(d)) / (log(u) - log(d)))
 
-        const result = bignumber(s0)
-            .mul(this.B(k1, N, p2))
+        const result = bignumber(S)
+            .mul(this.B(k1, n, p2))
             .sub(
                 bignumber(K)
-                .div(<BigNumber>pow(bignumber(R), bignumber(N)))
-                .mul(this.B(k1, N, p1))
-            );
+                .div(<BigNumber>pow(bignumber(R), bignumber(n)))
+                .mul(this.B(k1, n, p1))
+            ).toNumber()
 
-        if (!cachedResult) this.cache.set(N, result);
-
-        return result;
+        this.cache.call.set(n.toString(), result)
+        return result
     }
-    public calculatePutPrice(N: number): BigNumber {
-        const { K, s0, DeltaT: T, r } = this.option;
-        const deltaT = T / N;
-        const R = exp(r * deltaT);
 
-        const result = this.calculateCallPrice(N)
-        .sub(bignumber(s0))
+    putPrice(n: number): number {
+        const cachedResult = this.cache.put.get(n.toString())
+        if (cachedResult) {
+            return cachedResult
+        }
+
+        const { K, S, r } = this.option
+        const deltaT = this.OptionDeltaT / n
+        const R = exp(r * deltaT)
+
+        const result = bignumber(this.callPrice(n))
+        .sub(bignumber(S))
         .add(
             bignumber(K)
-            .mul(<BigNumber>pow(bignumber(R), -N))
-        );
-        return result;
+            .mul(<BigNumber>pow(bignumber(R), -n))
+        ).toNumber()
+        this.cache.put.set(n.toString(), result)
+        return result
     }
 
-    /** IDEA (cache optimize)
-     *  Cache might containt string instead BigNumbers
-     */
-    private cache: Map<number, BigNumber> = new Map();
-
-    private B(k: number, n: number, p: number) {
+    private B(k: number, n: number, p: number): number {
         let result = bignumber();
 
         for (let i = k; i < n; i++) {
@@ -80,6 +67,6 @@ export default class CoxRossRubinsteinOptionModel extends OptionModel {
             );
         }
 
-        return result;
+        return result.toNumber();
     }
 }
