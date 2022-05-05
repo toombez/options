@@ -11,7 +11,7 @@ export default abstract class OptionCalculator {
         for (const model of models.values()) {
             for (const priceType of priceTypes.values()) {
                 const modelName = model.name
-                const data: number[] = this.callPrices(model, priceType, graphLength)
+                const data: number[] = this.calculatePrices(model, priceType, graphLength)
 
                 result.push({
                     modelName,
@@ -23,7 +23,7 @@ export default abstract class OptionCalculator {
 
         return result
     }
-    private static callPrices(
+    private static calculatePrices(
         model: IOptionModel,
         priceType: OptionPrice,
         graphLength: number
