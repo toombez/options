@@ -100,3 +100,8 @@ export interface ITree {
     name: string;
     data: treeData;
 }
+
+export enum OptionType {
+    european = 'европейский',
+    american = 'американский'
+}

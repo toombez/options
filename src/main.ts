@@ -5,6 +5,7 @@ import { plugin, defaultConfig, createInput } from '@formkit/vue'
 import LimitsForm from '@/inputs/LimitsForm.vue'
 import OptionForm from '@/inputs/OptionForm.vue'
 import OptionPrice from '@/inputs/OptionPrice.vue'
+import OptionType from '@/inputs/OptionType.vue'
 
 createApp(App)
     .use(plugin, defaultConfig({
@@ -13,7 +14,8 @@ createApp(App)
             option: createInput(OptionForm, {
                 props: ['parameters']
             }),
-            price: createInput(OptionPrice)
+            price: createInput(OptionPrice),
+            optionType: createInput(OptionType)
         }
     }))
     .mount('#app')
