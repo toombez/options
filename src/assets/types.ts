@@ -93,3 +93,10 @@ export enum OptionPrice {
     call = 'колл',
     put = 'пут'
 }
+
+export type treeData = number[][];
+
+export interface ITree {
+    name: string;
+    data: treeData;
+}
