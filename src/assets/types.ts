@@ -107,3 +107,11 @@ export enum OptionType {
     european = 'европейский',
     american = 'американский'
 }
+
+export interface IOptionForTree {
+    S: number;
+    K: number;
+    r: number;
+    u: number;
+    d: number;
+}

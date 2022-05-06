@@ -1,4 +1,4 @@
-import { IOptionModel, IComparingOptionGraphData, OptionPrice } from "@/assets/types";
+import { IOptionModel, IComparingOptionGraphData, OptionPrice, IOptionForTree, rawTree, treeData, ITree } from "@/assets/types";
 
 export default abstract class OptionCalculator {
     public static graphDataForComparing(
@@ -23,6 +23,29 @@ export default abstract class OptionCalculator {
 
         return result
     }
+
+    public static calculateSTree(option: IOptionForTree, treeLength: number): ITree {
+        const u = option.u + 1
+        const d = option.d + 1
+
+        const tree: rawTree = [0, option.S]
+
+        for (let currentNodeIndex = 2; currentNodeIndex < 2 ** treeLength; currentNodeIndex++) {
+            const isUp = Math.ceil(currentNodeIndex % 2) == 0
+
+            const parentNode = tree[this.getParentNodeIndex(currentNodeIndex)]
+            if (!parentNode) continue
+
+            const currentNode = parentNode * (isUp ? u : d)
+            tree.push(currentNode)
+        }
+
+        return {
+            name: 'S дерево',
+            data: this.treeFromRaw(tree)
+        }
+    }
+
     private static treeFromRaw(rawTree: rawTree): treeData {
         const tree: treeData = [[]]
 
@@ -44,6 +67,9 @@ export default abstract class OptionCalculator {
             }
         }
         return tree
+    }
+    private static getParentNodeIndex(nodeIndex: number) {
+        return Math.floor(nodeIndex / 2)
     }
     private static callPrices(
         model: IOptionModel,
