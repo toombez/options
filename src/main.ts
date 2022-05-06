@@ -6,6 +6,7 @@ import LimitsForm from '@/inputs/LimitsForm.vue'
 import OptionForm from '@/inputs/OptionForm.vue'
 import OptionPrice from '@/inputs/OptionPrice.vue'
 import OptionType from '@/inputs/OptionType.vue'
+import OptionTreeFunction from '@/inputs/OptionTreeFunction.vue'
 
 createApp(App)
     .use(plugin, defaultConfig({
@@ -15,7 +16,8 @@ createApp(App)
                 props: ['parameters']
             }),
             price: createInput(OptionPrice),
-            optionType: createInput(OptionType)
+            optionType: createInput(OptionType),
+            treeFunction: createInput(OptionTreeFunction)
         }
     }))
     .mount('#app')

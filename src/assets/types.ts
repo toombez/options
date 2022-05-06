@@ -115,3 +115,10 @@ export interface IOptionForTree {
     u: number;
     d: number;
 }
+
+export enum treeFunctions {
+    '(SN - K)+' = 0,
+    '(K - SN)+' = 1,
+    '(S^- - K)+' = 2,
+    '(S^- - SN)+' = 3,
+}
