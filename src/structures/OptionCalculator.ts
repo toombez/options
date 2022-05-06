@@ -68,6 +68,18 @@ export default abstract class OptionCalculator {
         }
         return tree
     }
+    private static S_(STree: rawTree, nodeIndex: number) {
+        const treeLength = Math.ceil(Math.log2(STree.length))
+        let result = 0
+    
+        let currentNodeIndex = 2 ** (treeLength - 1) + nodeIndex
+        for (let i = treeLength - 1; i > -1; i--) {
+            const parentNodeIndex = this.getParentNodeIndex(currentNodeIndex)
+            result += STree[currentNodeIndex]
+            currentNodeIndex = parentNodeIndex
+        }
+        return result / treeLength
+    }
     private static getParentNodeIndex(nodeIndex: number) {
         return Math.floor(nodeIndex / 2)
     }
