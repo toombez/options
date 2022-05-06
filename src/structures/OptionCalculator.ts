@@ -23,6 +23,28 @@ export default abstract class OptionCalculator {
 
         return result
     }
+    private static treeFromRaw(rawTree: rawTree): treeData {
+        const tree: treeData = [[]]
+
+        let layerIndex = 0
+        let nodeIndex = 0
+
+        for (let i = 1; i < rawTree.length; i++) {
+            const nodeValue = rawTree[i]
+
+            if (nodeValue == null) continue
+            if (nodeIndex === 2 ** layerIndex) {
+                tree.push([])
+                layerIndex++
+                nodeIndex = 0
+            }
+            if (nodeIndex !== 2 ** layerIndex) {
+                tree[layerIndex].push(nodeValue)
+                nodeIndex++
+            }
+        }
+        return tree
+    }
     private static callPrices(
         model: IOptionModel,
         priceType: OptionPrice,
