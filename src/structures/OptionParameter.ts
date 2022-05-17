@@ -1,4 +1,4 @@
-interface IOptionParameter<T> {
+export interface IOptionParameter<T> {
     name: string;
     label: string;
     description: string;
@@ -30,6 +30,12 @@ export default abstract class OptionParameter<T> implements IOptionParameter<T> 
         Object.assign(this, parameter)
         OptionParameter.registred.set(parameter.name, this)
     }
+
+    public abstract type: string;
+
+    public abstract get Min(): number | string | undefined;
+
+    public abstract get Max(): number | string | undefined;
 
     abstract fromRaw(rawValue: string): T;
 }
