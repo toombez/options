@@ -1,5 +1,7 @@
+import OptionParameters from '@/assets/RegistredOptionParameters'
+
 export interface IOptionParameter<T> {
-    name: string;
+    name: OptionParameters;
     label: string;
     description: string;
 
@@ -10,10 +12,10 @@ export interface IOptionParameter<T> {
 }
 
 export default abstract class OptionParameter<T> implements IOptionParameter<T> {
-    static registred = new Map<string, OptionParameter<unknown>>();
+    static registred = new Map<OptionParameters, OptionParameter<unknown>>();
     
     public readonly label!: string;
-    public readonly name!: string;
+    public readonly name!: OptionParameters;
     public readonly description!: string;
 
     public readonly defaultValue!: T;

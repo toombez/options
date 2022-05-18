@@ -1,4 +1,4 @@
-import OptionParameter from "../OptionParameter";
+import OptionParameter from "@/structures/OptionParameter";
 
 export default class DateOptionParameter extends OptionParameter<Date> {
     public get Max(): string | number | undefined {
