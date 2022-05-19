@@ -1,15 +1,25 @@
-import { OptionModelCache, IOptionForModel } from "@/assets/types";
+import { IOptionForModel, IOption } from "@/assets/types"
 
-export default abstract class OptionModel {
+export interface OptionModelCache {
+    call: Map<string, number>;
+    put: Map<string, number>;
+}
+
+export interface IOptionModel {
+    Option: IOption;
+    Cache?: OptionModelCache;
+
+    callPrice(...args: unknown[]): number;
+    putPrice(...args: unknown[]): number;
+}
+
+export default abstract class OptionModel implements IOptionModel {
     protected static readonly DAYS_PER_YEAR = 360;
 
-    protected option!: IOptionForModel;
-    
-    abstract readonly name: string;
-    
     constructor(option: IOptionForModel) {
         this.Option = option
     }
+    Cache?: OptionModelCache | undefined;
 
     public set Option(option: IOptionForModel) {
         this.option = option
@@ -35,4 +45,9 @@ export default abstract class OptionModel {
         this.cache.call = new Map()
         this.cache.put = new Map()
     }
+
+    abstract callPrice(...args: unknown[]): number;
+    abstract putPrice(...args: unknown[]): number;
+
+    private option!: IOptionForModel;
 }

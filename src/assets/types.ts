@@ -27,30 +27,6 @@ export interface IComparingOptionGraphData {
     data: number[];
 }
 
-export interface IOptionParameterOptions {
-    name: string;
-    description?: string;
-    value: number | string;
-    min?: number | string;
-    max?: number | string;
-    step?: number;
-    displayedName: string;
-}
-
-export interface OptionModelCache {
-    call: Map<string, number>;
-    put: Map<string, number>;
-}
-
-export interface IOptionModel {
-    name: string;
-    Option: IOption;
-    Cache?: OptionModelCache;
-
-    callPrice(...args: unknown[]): number;
-    putPrice(...args: unknown[]): number;
-}
-
 export interface IOptionForModel {
     S: number;
     K: number;

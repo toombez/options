@@ -1,10 +1,7 @@
-import { IOptionModel } from "@/assets/types"
 import { erf, exp, log, pow, sqrt } from "mathjs"
-import OptionModel from "@/structures/OptionModel"
+import OptionModel from "@/modules/models/Model"
 
-export default class BlackScholesOptionModel extends OptionModel implements IOptionModel {
-    public name = 'Модель Блэка—Шоулза';
-
+export default class BlackScholesOptionModel extends OptionModel {
     callPrice(): number {
         const cachedValue = this.cache.call.get('0')
         if (cachedValue) {
@@ -12,7 +9,7 @@ export default class BlackScholesOptionModel extends OptionModel implements IOpt
         }
 
         const deltaT = this.OptionDeltaT
-        const { S, K, r, sigma } = this.option
+        const { S, K, r, sigma } = this.Option
         const mu = r + <number>pow(sigma, 2) / 2
         const d1 = (log(S / K) + mu * deltaT) / (sigma * sqrt(deltaT))
         const d2 = d1 - sigma * sqrt(deltaT)
@@ -29,7 +26,7 @@ export default class BlackScholesOptionModel extends OptionModel implements IOpt
         }
 
         const deltaT = this.OptionDeltaT
-        const { S, K, r, sigma } = this.option
+        const { S, K, r, sigma } = this.Option
         const mu = r + <number>pow(sigma, 2) / 2
 
         const d1 = (log(S / K) + mu * deltaT) / (sigma * sqrt(deltaT))

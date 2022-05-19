@@ -1,17 +1,14 @@
-import { IOptionModel } from "@/assets/types"
 import { BigNumber, bignumber, combinations, exp, log, pow, round, sqrt } from "mathjs";
-import OptionModel from "@/structures/OptionModel"
+import OptionModel from "@/modules/models/Model"
 
-export default class CoxRossRubinsteinOptionModel extends OptionModel implements IOptionModel {
-    public name = 'Модель Кокса-Росса-Рубинштейна';
-
+export default class CoxRossRubinsteinOptionModel extends OptionModel {
     callPrice(n: number): number {
         const cachedResult = this.cache.call.get(n.toString())
         if (cachedResult) {
             return cachedResult
         }
 
-        const { K, S, sigma, r } = this.option
+        const { K, S, sigma, r } = this.Option
         const deltaT = this.OptionDeltaT / n
         const R = exp(r * deltaT)
         const u = exp(sigma * sqrt(deltaT))
@@ -42,7 +39,7 @@ export default class CoxRossRubinsteinOptionModel extends OptionModel implements
             return cachedResult
         }
 
-        const { K, S, r } = this.option
+        const { K, S, r } = this.Option
         const deltaT = this.OptionDeltaT / n
         const R = exp(r * deltaT)
 
