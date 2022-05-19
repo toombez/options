@@ -1,16 +1,19 @@
-import DateOptionParameter from "@/structures/OptionParameters/DateOptionParameter";
-import NumberOptionParameter from "@/structures/OptionParameters/NumberOptionParameter";
+import DateOptionParameter from "@/structures/OptionParameters/DateOptionParameter"
+import NumberOptionParameter from "@/structures/OptionParameters/NumberOptionParameter"
 
-enum OptionParameters {
+export enum NumberOptionParameters {
     S = 'S',
     K = 'K',
     sigma = 'sigma',
-    r = 'r',
-    T = 'T',
+    r = 'r'
+}
+
+export enum DateOptionParameters {
+    T = 'T'
 }
 
 new NumberOptionParameter({
-    name: OptionParameters.S,
+    name: NumberOptionParameters.S,
     label: 'S',
     description: 'Значение рискового актива в начальный момент времени',
     defaultValue: 100,
@@ -18,14 +21,15 @@ new NumberOptionParameter({
     min: 0
 })
 new NumberOptionParameter({
-    name: OptionParameters.K,
+    name: NumberOptionParameters.K,
     label: 'K',
     description: 'Контрактная цена',
     defaultValue: 100,
     step: 10,
+    min: 0,
 })
 new NumberOptionParameter({
-    name: OptionParameters.sigma,
+    name: NumberOptionParameters.sigma,
     label: '\u03C3',
     description: 'Волатильность',
     defaultValue: 0.1,
@@ -34,7 +38,7 @@ new NumberOptionParameter({
     step: 0.1
 })
 new NumberOptionParameter({
-    name: OptionParameters.r,
+    name: NumberOptionParameters.r,
     label: 'r',
     description: 'Безрисковая процентная ставка за период ∆t',
     defaultValue: 0.1,
@@ -43,7 +47,7 @@ new NumberOptionParameter({
     step: 0.1
 })
 new DateOptionParameter({
-    name: OptionParameters.T,
+    name: DateOptionParameters.T,
     label: 'T',
     description: 'Дата погашения',
     defaultValue: new Date(
@@ -53,5 +57,12 @@ new DateOptionParameter({
     ),
     min: new Date()
 })
+
+export const OptionParameters = {
+    ...NumberOptionParameters,
+    ...DateOptionParameters,
+}
+export type OptionParameters = NumberOptionParameters |
+    DateOptionParameters
 
 export default OptionParameters

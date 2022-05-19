@@ -1,18 +1,19 @@
+import {
+    DateOptionParameters,
+    NumberOptionParameters
+} from "@/assets/RegistredOptionParameters"
+
+type IOptionNumberParameters = {
+    [numberParameter in NumberOptionParameters]?: number;
+}
+type IOptionDateParameters = {
+    [dateParameter in DateOptionParameters]?: Date;
+}
+export type IOption = IOptionDateParameters & IOptionNumberParameters
+
 export interface ILimits {
     start: number;
     end: number;
-}
-
-export interface IOption {
-    S: number;
-    K: number;
-
-    r?: number;
-    sigma?: number;
-    T?: Date;
-
-    u?: number;
-    d?: number;
 }
 
 export interface IComparingOptionGraphData {
