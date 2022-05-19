@@ -14,11 +14,9 @@ createApp(App)
             /** TODO
              *  Separate all input components into local and global
              */
-            limits: createInput(LimitsForm),
             option: createInput(OptionInput, {
                 props: ['parameters']
             }),
-            price: createInput(OptionPrice),
             optionType: createInput(OptionType),
             treeFunction: createInput(OptionTreeFunction)
         }

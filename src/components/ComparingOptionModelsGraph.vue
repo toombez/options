@@ -2,6 +2,10 @@
 import { defineProps, PropType } from 'vue'
 import { computed, ref } from '@vue/reactivity'
 
+import { createInput } from '@formkit/vue'
+import LimitInput from '@/inputs/LimitsForm.vue'
+import OptionPriceInput from '@/inputs/OptionPrice.vue'
+
 import { Line } from 'vue-chartjs'
 import { Chart, ChartData, registerables } from 'chart.js'
 
@@ -58,8 +62,8 @@ const isNotEmptyPriceType = computed<boolean>(() => {
 </script>
 <template>
 <div>
-    <FormKit type="price" v-model="priceType" />
-    <FormKit type="limits" v-model="limits" />
+    <FormKit :type="optionPriceInput" v-model="priceType" />
+    <FormKit :type="limitsInput" v-model="limits" />
     <Line 
         v-if="isNotEmptyPriceType"
         :chart-data="graphData"
