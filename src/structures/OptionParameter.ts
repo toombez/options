@@ -39,5 +39,7 @@ export default abstract class OptionParameter<T> implements IOptionParameter<T> 
 
     public abstract get Max(): number | string | undefined;
 
+    public abstract get defaultRawValue(): string;
+
     abstract fromRaw(rawValue: string): T;
 }
