@@ -9,7 +9,12 @@ type IOptionNumberParameters = {
 type IOptionDateParameters = {
     [dateParameter in DateOptionParameters]?: Date;
 }
-export type IOption = IOptionDateParameters & IOptionNumberParameters
+type IOptionOptionTypeParameter = {
+    type?: OptionType
+}
+export type IOption = IOptionDateParameters &
+    IOptionNumberParameters &
+    IOptionOptionTypeParameter
 
 export interface ILimits {
     start: number;

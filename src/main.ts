@@ -11,6 +11,9 @@ import OptionTreeFunction from '@/inputs/OptionTreeFunction.vue'
 createApp(App)
     .use(plugin, defaultConfig({
         inputs: {
+            /** TODO
+             *  Separate all input components into local and global
+             */
             limits: createInput(LimitsForm),
             option: createInput(OptionInput, {
                 props: ['parameters']

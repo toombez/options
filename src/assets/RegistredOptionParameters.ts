@@ -1,5 +1,7 @@
 import DateOptionParameter from "@/structures/OptionParameters/DateOptionParameter"
 import NumberOptionParameter from "@/structures/OptionParameters/NumberOptionParameter"
+import OptionTypeOptionParameter from "@/structures/OptionParameters/OptionTypeOptionParameter"
+import { OptionType } from "./types"
 
 export enum NumberOptionParameters {
     S = 'S',
@@ -10,6 +12,9 @@ export enum NumberOptionParameters {
 
 export enum DateOptionParameters {
     T = 'T'
+}
+export enum OptionTypeOptionParameters {
+    type = 'type'
 }
 
 new NumberOptionParameter({
@@ -57,12 +62,20 @@ new DateOptionParameter({
     ),
     min: new Date()
 })
+new OptionTypeOptionParameter({
+    name: OptionTypeOptionParameters.type,
+    label: 'Тип опциона',
+    description: 'Тип опциона',
+    defaultValue: OptionType.european
+})
 
 export const OptionParameters = {
     ...NumberOptionParameters,
     ...DateOptionParameters,
+    ...OptionTypeOptionParameters,
 }
 export type OptionParameters = NumberOptionParameters |
-    DateOptionParameters
+    DateOptionParameters |
+    OptionTypeOptionParameters
 
 export default OptionParameters

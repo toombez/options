@@ -1,27 +1,29 @@
 <script setup lang="ts">
-import { OptionType } from '@/assets/types'
-import { defineProps, PropType, onMounted } from 'vue'
+import { defineProps, PropType, watch } from 'vue'
 import { ref } from '@vue/reactivity'
-
 import { FormKitFrameworkContext } from '@formkit/core'
+
+import { OptionType } from '@/assets/types'
+import OptionParameter from '@/structures/OptionParameter'
+import OptionParameters from '@/assets/RegistredOptionParameters'
 
 const props = defineProps({
     context: Object as PropType<FormKitFrameworkContext>
 })
 
-const optionType = ref(OptionType.european)
-onMounted(() => {
-    props.context?.node.input(optionType)
+const inputOptions = Object.values(OptionType)
+const currentOptionType = ref(
+    OptionParameter.registred.get(OptionParameters.type)?.defaultValue
+)
+
+watch(currentOptionType, () => {
+    props.context?.node.input(currentOptionType)
 })
 </script>
 <template>
 <FormKit
     type="radio"
-    :options="[
-        OptionType.european,
-        OptionType.american,
-    ]"
-    v-model="optionType"
->
-</FormKit>
+    :options="inputOptions"
+    v-model="currentOptionType"
+/>
 </template>
