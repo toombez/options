@@ -1,17 +1,4 @@
-import { IOptionForModel, IOption } from "@/assets/types"
-
-export interface OptionModelCache {
-    call: Map<string, number>;
-    put: Map<string, number>;
-}
-
-export interface IOptionModel {
-    Option: IOption;
-    Cache?: OptionModelCache;
-
-    callPrice(...args: unknown[]): number;
-    putPrice(...args: unknown[]): number;
-}
+import { IOptionForModel, IOptionModel, OptionModelCache } from "@/modules/models/types"
 
 export default abstract class OptionModel implements IOptionModel {
     protected static readonly DAYS_PER_YEAR = 360;

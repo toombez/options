@@ -16,23 +16,10 @@ export type IOption = IOptionDateParameters &
     IOptionNumberParameters &
     IOptionOptionTypeParameter
 
-export interface ILimits {
-    start: number;
-    end: number;
-}
-
 export interface IComparingOptionGraphData {
     modelName: string;
     priceType: OptionPrice;
     data: number[];
-}
-
-export interface IOptionForModel {
-    S: number;
-    K: number;
-    sigma: number;
-    r: number;
-    T: Date;
 }
 
 export enum OptionPrice {
