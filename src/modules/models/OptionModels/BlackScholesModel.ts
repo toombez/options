@@ -3,6 +3,7 @@ import OptionModel from "@/modules/models/Model"
 import { Models } from "../types"
 
 export default class BlackScholesOptionModel extends OptionModel {
+    public readonly MODEL_COLOR = '#cf1f57';
     public readonly MODEL_NAME = Models.BlackScholes;
     callPrice(): number {
         const cachedValue = this.cache.call.get('0')

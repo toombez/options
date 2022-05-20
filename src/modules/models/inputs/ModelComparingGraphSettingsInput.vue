@@ -22,7 +22,6 @@ onMounted(() => props.context?.node.input(settings))
 
 <template>
 <div>
-    <hr>
     <FormKit type="group" v-model="settings">
         <FormKit type="group" name="limits" label="Границы графика">
             <FormKit

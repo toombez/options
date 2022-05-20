@@ -4,11 +4,13 @@ import {
     Models,
     OptionModelCache
 } from "@/modules/models/types"
+import { Color } from "chart.js";
 
 export default abstract class OptionModel implements IOptionModel {
     protected static readonly DAYS_PER_YEAR = 360;
 
     abstract MODEL_NAME: Models;
+    abstract MODEL_COLOR: Color;
 
     constructor(option: IOptionForModel) {
         this.Option = option
