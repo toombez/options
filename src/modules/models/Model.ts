@@ -1,15 +1,21 @@
-import { OptionModelCache, IOptionForModel } from "@/assets/types";
+import {
+    IOptionForModel,
+    IOptionModel,
+    Models,
+    OptionModelCache
+} from "@/modules/models/types"
+import { Color } from "chart.js";
 
-export default abstract class OptionModel {
+export default abstract class OptionModel implements IOptionModel {
     protected static readonly DAYS_PER_YEAR = 360;
 
-    protected option!: IOptionForModel;
-    
-    abstract readonly name: string;
-    
+    abstract MODEL_NAME: Models;
+    abstract MODEL_COLOR: Color;
+
     constructor(option: IOptionForModel) {
         this.Option = option
     }
+    Cache?: OptionModelCache | undefined;
 
     public set Option(option: IOptionForModel) {
         this.option = option
@@ -35,4 +41,9 @@ export default abstract class OptionModel {
         this.cache.call = new Map()
         this.cache.put = new Map()
     }
+
+    abstract callPrice(...args: unknown[]): number;
+    abstract putPrice(...args: unknown[]): number;
+
+    private option!: IOptionForModel;
 }

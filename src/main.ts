@@ -2,18 +2,21 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { plugin, defaultConfig, createInput } from '@formkit/vue'
 
-import LimitsForm from '@/inputs/LimitsForm.vue'
-import OptionForm from '@/inputs/OptionForm.vue'
-import OptionPrice from '@/inputs/OptionPrice.vue'
+import OptionInput from '@/inputs/OptionInput.vue'
+import OptionType from '@/inputs/OptionType.vue'
+import OptionTreeFunction from '@/inputs/OptionTreeFunction.vue'
 
 createApp(App)
     .use(plugin, defaultConfig({
         inputs: {
-            limits: createInput(LimitsForm),
-            option: createInput(OptionForm, {
+            /** TODO
+             *  Separate all input components into local and global
+             */
+            option: createInput(OptionInput, {
                 props: ['parameters']
             }),
-            price: createInput(OptionPrice)
+            optionType: createInput(OptionType),
+            treeFunction: createInput(OptionTreeFunction)
         }
     }))
     .mount('#app')

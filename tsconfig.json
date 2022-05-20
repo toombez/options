@@ -19,6 +19,9 @@
         "paths": {
             "@/*": [
                 "src/*"
+            ],
+            "@modules/*": [
+                "src/modules/*"
             ]
         },
         "lib": [
