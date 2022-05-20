@@ -1,7 +1,9 @@
 import { erf, exp, log, pow, sqrt } from "mathjs"
 import OptionModel from "@/modules/models/Model"
+import { Models } from "../types"
 
 export default class BlackScholesOptionModel extends OptionModel {
+    public readonly MODEL_NAME = Models.BlackScholes;
     callPrice(): number {
         const cachedValue = this.cache.call.get('0')
         if (cachedValue) {

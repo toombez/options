@@ -1,7 +1,14 @@
-import { IOptionForModel, IOptionModel, OptionModelCache } from "@/modules/models/types"
+import {
+    IOptionForModel,
+    IOptionModel,
+    Models,
+    OptionModelCache
+} from "@/modules/models/types"
 
 export default abstract class OptionModel implements IOptionModel {
     protected static readonly DAYS_PER_YEAR = 360;
+
+    abstract MODEL_NAME: Models;
 
     constructor(option: IOptionForModel) {
         this.Option = option

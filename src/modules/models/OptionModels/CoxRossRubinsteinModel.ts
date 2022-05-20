@@ -1,7 +1,9 @@
 import { BigNumber, bignumber, combinations, exp, log, pow, round, sqrt } from "mathjs";
 import OptionModel from "@/modules/models/Model"
+import { Models } from "../types";
 
 export default class CoxRossRubinsteinOptionModel extends OptionModel {
+    public readonly MODEL_NAME = Models.CoxRossRubinstein;
     callPrice(n: number): number {
         const cachedResult = this.cache.call.get(n.toString())
         if (cachedResult) {
