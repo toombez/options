@@ -3,39 +3,14 @@
     <FormKit
         type="option" 
         v-model="option"
-        :parameters="[
-            OptionParameters.r,
-            OptionParameters.sigma,
-            OptionParameters.T,
-        ]"
-    />
-    <ComparingOptionModelsGraph
-        v-if="option"
-        :models="models"
+        :parameters="Object.values(OptionParameters)"
     />
 </div>
 </template>
 <script lang="ts" setup>
 import { ref } from '@vue/reactivity'
-import { watch } from 'vue';
+import { OptionParameters } from '@/assets/RegistredOptionParameters'
+import { IOption } from './assets/types';
 
-import ComparingOptionModelsGraph from '@/components/ComparingOptionModelsGraph.vue'
-
-import BlackScholesOptionModel from '@/structures/OptionModels/BlackScholesOptionModel';
-import CoxRossRubinsteinOptionModel from '@/structures/OptionModels/CoxRossRubinsteinOptionModel';
-
-import { IOptionForModel, OptionParameters } from '@/assets/types'
-
-const option = ref()
-
-watch(option, () => {
-    for (let model of models.value.values()) {
-        model.Option = option.value
-    }
-})
-
-const models = ref([
-    new BlackScholesOptionModel(option.value as IOptionForModel),
-    new CoxRossRubinsteinOptionModel(option.value as IOptionForModel)
-])
+const option = ref<IOption>()
 </script>
