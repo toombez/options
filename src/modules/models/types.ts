@@ -1,4 +1,5 @@
 import { IOption } from "@/assets/types"
+import { Color, PointStyle } from "chart.js";
 
 export interface ILimits {
     start: number;
@@ -40,4 +41,9 @@ export interface IModelComparingGraphSettings {
     limits: ILimits,
     price: OptionPrice[],
     models: Models[]
+}
+
+export type modelGraphStyle = {
+    pointStyle?: PointStyle,
+    lineColor?: Color
 }
