@@ -1,26 +1,20 @@
-export class Queue<DataType> {
+export default class Queue<DataType> {
     private storage = new Map<number, DataType>();
-    private enqueueIndex = 0;
-    private dequeueIndex = 0;
+    private enqueuedIndex = 0;
+    private dequeuedIndex = 0;
 
-    public enqueue(data: DataType) {
-        this.storage.set(this.enqueueIndex, data)
-        this.enqueueIndex++
+    public enqueue(data: DataType): void {
+        this.storage.set(this.enqueuedIndex++, data)
     }
 
-    public dequeue() {
-        if (this.size == 0) {
-            return null;
-        }
+    public dequeue(): DataType | null {
+        const deletedData = this.storage.get(this.dequeuedIndex)
+        this.storage.delete(this.dequeuedIndex++)
 
-        const deletedData = this.storage.get(this.dequeueIndex);
-        this.storage.delete(this.dequeueIndex);
-        this.dequeueIndex++;
-
-        return deletedData;
+        return deletedData as DataType
     }
 
     public get size(): number {
-        return this.enqueueIndex - this.dequeueIndex
+        return this.enqueuedIndex - this.dequeuedIndex
     }
 }
