@@ -1,20 +1,26 @@
 export class Queue<DataType> {
-    private storage: (DataType | null)[] = [];
-    private realIndex = 0;
+    private storage = new Map<number, DataType>();
+    private enqueueIndex = 0;
+    private dequeueIndex = 0;
 
     public enqueue(data: DataType) {
-        this.storage.push(data)
+        this.storage.set(this.enqueueIndex, data)
+        this.enqueueIndex++
     }
 
     public dequeue() {
-        const data = this.storage[this.realIndex]
-        
-        if (!data) return null
-        this.storage[this.realIndex] = null
-        this.realIndex++
-        return data
+        if (this.size == 0) {
+            return null;
+        }
+
+        const deletedData = this.storage.get(this.dequeueIndex);
+        this.storage.delete(this.dequeueIndex);
+        this.dequeueIndex++;
+
+        return deletedData;
     }
+
     public get size(): number {
-        return this.storage.length - this.realIndex
+        return this.enqueueIndex - this.dequeueIndex
     }
 }
