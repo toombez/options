@@ -7,7 +7,7 @@ type BFSCallback<DataType> = (node: BinaryTreeNode<DataType>) => void
 
 interface IBinaryTree<DataType> {
     root: BinaryTreeNode<DataType> | null;
-    layersCount: number;
+    length: number;
     flatten: flattenTree<DataType>;
     layered: layeredTree<DataType>;
     layer: (layer: number) => treeLayer<DataType> | null;
@@ -47,7 +47,7 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
     }
     public get layered(): layeredTree<DataType> {
         const layers: layeredTree<DataType> = []
-        for(let i = 0; i < this.layersCount; i++) {
+        for(let i = 0; i < this.length; i++) {
             const layer = this.layer(i)
             if (layer) layers.push(layer)
         }
@@ -61,14 +61,14 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
         return layerNodes
     }
 
-    public get layersCount(): number {
-        let currentLayerIndex = 0
+    public get length(): number {
+        let currentlength = 0
 
-        while (this.layer(currentLayerIndex)) {
-            ++currentLayerIndex
+        while (this.layer(currentlength)) {
+            ++currentlength
         }
 
-        return currentLayerIndex
+        return currentlength
     }
 
     public get root(): BinaryTreeNode<DataType> {

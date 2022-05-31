@@ -11,7 +11,7 @@ export default class STree extends BinaryOptionTree<number> {
         this.root = new BinaryTreeNode<number>(option.S)
 
         this.BFS((node) => {
-            if (node.layer < layers) {
+            if (node.layer < layers - 1) {
                 const upData = (1 + option.u) * node.data
                 const downData = (1 + option.d) * node.data
                 node.upChildren = new BinaryTreeNode(upData)
@@ -25,14 +25,14 @@ export default class STree extends BinaryOptionTree<number> {
     public static S_(node: BinaryTreeNode<number>) {
         let currentNode = node
         let result = currentNode.data
-        let layersCount = 1
+        let currentLayer = 0
 
         while(currentNode.parent) {
             result += currentNode.parent.data
             currentNode = currentNode.parent
-            layersCount++
+            currentLayer++
         } 
 
-        return result / (layersCount)
+        return result / (currentLayer + 1)
     }
 }
