@@ -7,7 +7,7 @@ const props = defineProps({
 })
 
 const settings = ref<ITreesSettings>({
-    layersCount: 1,
+    layersCount: 4,
     function: treesFunctions.func1
 })
 
