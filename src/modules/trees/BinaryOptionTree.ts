@@ -68,8 +68,7 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
             ++currentLayerIndex
         }
 
-        const lastLayerIndex = currentLayerIndex - 1
-        return lastLayerIndex
+        return currentLayerIndex
     }
 
     public get root(): BinaryTreeNode<DataType> {
