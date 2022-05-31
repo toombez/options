@@ -1,6 +1,7 @@
 import Queue from "./Queue";
 import BinaryTreeNode from "./BinaryTreeNode";
 import { flattenTree, layeredTree, treeLayer } from "./types";
+import { Component } from "vue";
 
 type BFSCallback<DataType> = (node: BinaryTreeNode<DataType>) => void
 
@@ -10,10 +11,13 @@ interface IBinaryTree<DataType> {
     flatten: flattenTree<DataType>;
     layered: layeredTree<DataType>;
     layer: (layer: number) => treeLayer<DataType> | null;
+    dataComponent: Component;
 }
 
 export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<DataType> {
     private _root: BinaryTreeNode<DataType> | null = null;
+
+    public abstract readonly dataComponent: Component;
 
     abstract generate(...args: unknown[]): this;
 
