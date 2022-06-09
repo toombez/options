@@ -21,8 +21,22 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
 
     abstract generate(...args: unknown[]): this;
 
-    public BFS(callback: BFSCallback<DataType> | null): void {
+    public generateFromLayers(layers: BinaryTreeNode<DataType>[][], isReversed = false) {
+        if (isReversed) layers.reverse()
 
+        layers.forEach((layer, layerIndex) => {
+            if (layerIndex === layers.length - 1) return
+
+            layer.forEach((node, nodeIndex) => {
+                node.upChildren = layers[layerIndex + 1][nodeIndex * 2]
+                node.downChildren = layers[layerIndex + 1][nodeIndex * 2 + 1]
+            })
+        })
+
+        this.root = layers[0][0] 
+    }
+
+    public BFS(callback: BFSCallback<DataType> | null): void {
         const treeQueue = new Queue<BinaryTreeNode<DataType>>()
 
         if (!this.root) throw new Error('Call generate before use BFS') 
@@ -54,7 +68,7 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
         return layers
     }
 
-    public layer(layer: number): treeLayer<DataType> | null {
+    public getLayer(layer: number): treeLayer<DataType> | null {
         const layerNodes = this.flatten.filter(node => node.layer == layer)
 
         if (layerNodes.length === 0) return null;
@@ -64,7 +78,7 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
     public get length(): number {
         let currentlength = 0
 
-        while (this.layer(currentlength)) {
+        while (this.getLayer(currentlength)) {
             ++currentlength
         }
 
