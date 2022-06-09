@@ -20,8 +20,11 @@
             "@/*": [
                 "src/*"
             ],
-            "@modules/*": [
-                "src/modules/*"
+            "@models/*": [
+                "src/modules/models/*"
+            ],
+            "@trees/*": [
+                "src/modules/trees/*"
             ]
         },
         "lib": [
