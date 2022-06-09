@@ -27,15 +27,6 @@ export enum OptionPrice {
     put = 'пут'
 }
 
-export type treeData = number[][];
-
-export interface ITree {
-    name: string;
-    data: treeData;
-}
-
-export type rawTree = number[]
-
 export enum OptionType {
     european = 'европейский',
     american = 'американский'
@@ -47,6 +38,7 @@ export interface IOptionForTree {
     r: number;
     u: number;
     d: number;
+    type: OptionType;
 }
 
 export enum treeFunctions {

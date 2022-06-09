@@ -7,7 +7,9 @@ export enum NumberOptionParameters {
     S = 'S',
     K = 'K',
     sigma = 'sigma',
-    r = 'r'
+    r = 'r',
+    u = 'u',
+    d = 'd',
 }
 
 export enum DateOptionParameters {
@@ -49,6 +51,24 @@ new NumberOptionParameter({
     defaultValue: 0.1,
     max: 1,
     min: 0,
+    step: 0.1
+})
+new NumberOptionParameter({
+    name: NumberOptionParameters.u,
+    label: 'u',
+    description: 'Коэффициент верхнего потомка',
+    defaultValue: 0.1,
+    max: 1,
+    min: 0,
+    step: 0.1
+})
+new NumberOptionParameter({
+    name: NumberOptionParameters.d,
+    label: 'd',
+    description: 'Коэффициент нижнего потомка',
+    defaultValue: -0.1,
+    max: 0,
+    min: -1,
     step: 0.1
 })
 new DateOptionParameter({
