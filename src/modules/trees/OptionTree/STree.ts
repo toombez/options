@@ -1,22 +1,28 @@
 import { IOptionForTree } from "@/assets/types";
-import BinaryOptionTree from "../BinaryOptionTree";
+import BinaryOptionTree, { IOptionTreeGeneratorOptions } from "../BinaryOptionTree";
 import BinaryTreeNode from "../BinaryTreeNode";
 
 import NumberNode from '../components/NumberNode.vue'
 
+interface ISTreeGeneratorOptions extends IOptionTreeGeneratorOptions {
+    layersCount: number
+}
+
 export default class STree extends BinaryOptionTree<number> {
     public dataComponent = NumberNode;
     
-    generate(option: IOptionForTree, layers: number): this {
+    generate({ option, layersCount }: ISTreeGeneratorOptions): this {
         this.root = new BinaryTreeNode<number>(option.S)
 
         this.BFS((node) => {
-            if (node.layer < layers - 1) {
-                const upData = (1 + option.u) * node.data
-                const downData = (1 + option.d) * node.data
-                node.upChildren = new BinaryTreeNode(upData)
-                node.downChildren = new BinaryTreeNode(downData)
-            }
+            // last layer index is less by one that layersCount
+            if (node.layer === layersCount - 1) return 
+
+            const upData = (1 + option.u) * node.data
+            const downData = (1 + option.d) * node.data
+
+            node.upChildren = new BinaryTreeNode(upData)
+            node.downChildren = new BinaryTreeNode(downData)
         })
 
         return this
