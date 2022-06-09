@@ -2,15 +2,21 @@ import Queue from "./Queue";
 import BinaryTreeNode from "./BinaryTreeNode";
 import { flattenTree, layeredTree, treeLayer } from "./types";
 import { Component } from "vue";
+import { IOptionForTree } from "@/assets/types";
 
 type BFSCallback<DataType> = (node: BinaryTreeNode<DataType>) => void
 
+export interface IOptionTreeGeneratorOptions {
+    option: IOptionForTree
+}
+
 interface IBinaryTree<DataType> {
+    generate: (options: IOptionTreeGeneratorOptions) => this;
     root: BinaryTreeNode<DataType> | null;
     length: number;
     flatten: flattenTree<DataType>;
     layered: layeredTree<DataType>;
-    layer: (layer: number) => treeLayer<DataType> | null;
+    getLayer: (layer: number) => treeLayer<DataType> | null;
     dataComponent: Component;
 }
 
@@ -19,7 +25,7 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
 
     public abstract readonly dataComponent: Component;
 
-    abstract generate(...args: unknown[]): this;
+    abstract generate(options: IOptionTreeGeneratorOptions): this;
 
     public generateFromLayers(layers: BinaryTreeNode<DataType>[][], isReversed = false) {
         if (isReversed) layers.reverse()
@@ -62,7 +68,7 @@ export default abstract class BinaryOptionTree<DataType> implements IBinaryTree<
     public get layered(): layeredTree<DataType> {
         const layers: layeredTree<DataType> = []
         for(let i = 0; i < this.length; i++) {
-            const layer = this.layer(i)
+            const layer = this.getLayer(i)
             if (layer) layers.push(layer)
         }
         return layers
