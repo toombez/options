@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { defineProps, PropType } from 'vue'
-import BinaryOptionTree from '../BinaryOptionTree';
+import { Component, defineProps, PropType, watch } from 'vue'
+import { layeredTree } from '../types';
 
 defineProps({
     tree: {
-        type: Object as PropType<BinaryOptionTree<unknown>>,
+        type: Object as PropType<layeredTree<unknown>>,
         required: true
+    },
+    dataComponent: {
+        type: Object as PropType<Component>
     }
 })
 
@@ -15,7 +18,7 @@ const nodeHeight = (layerIndex: number) => (100 / Math.pow(2, layerIndex))
 <div class="tree">
     <div
         class="tree__layer"
-        v-for="(layer, layerIndex) in tree.layered"
+        v-for="(layer, layerIndex) in tree"
         :key="layerIndex"
     >
         <div
@@ -24,7 +27,7 @@ const nodeHeight = (layerIndex: number) => (100 / Math.pow(2, layerIndex))
             :key="nodeIndex"
             :style="`height: ${nodeHeight(layerIndex)}%`"
         >
-            <component :is="tree.dataComponent" :data="node.data" />
+            <component :is="dataComponent" :data="node.data" />
         </div>
     </div>
 </div>
