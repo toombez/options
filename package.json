@@ -2,14 +2,20 @@
   "name": "options",
   "version": "0.3.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel"
   },
   "devDependencies": {
-    "nuxt": "3.0.0"
-  }
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "yarn@1.22.19"
 }
