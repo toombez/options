@@ -1,8 +1,11 @@
 import { defineConfig } from 'tsup'
 
 defineConfig((options) => ({
+    dts: true,
+    bundle: true,
+    format: ['esm', 'cjs'],
     minify: !options.watch,
     clean: !options.watch,
-    dts: true,
+    treeshake: !options.watch,
 }))
 
