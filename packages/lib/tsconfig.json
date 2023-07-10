@@ -14,7 +14,14 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "paths": {
+        "@types": ["types.ts"],
+        "@builders/*": ["builders/*"],
+        "@structures/*": ["structures/*"],
+        "@models/*": ["models/*"]
+    }
   },
   "include": ["./src"],
   "exclude": ["node_modules"]
