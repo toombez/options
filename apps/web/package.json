@@ -9,7 +9,7 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "nuxt": "3.0.0",
-    "@options/lib": "*"
+    "@options/lib": "*",
+    "nuxt": "^3.6.2"
   }
 }
