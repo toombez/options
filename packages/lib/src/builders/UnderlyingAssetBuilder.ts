@@ -5,6 +5,7 @@ export default class UnderlyingAssetBuilder implements IUnderlyingAssetBuilder {
     protected name?: IUnderlyingAsset['name']
     protected volatility?: IUnderlyingAsset['volatility']
     protected price?: IUnderlyingAsset['price']
+    protected dividendYield?: IUnderlyingAsset['dividendYield']
 
     public setName(name: IUnderlyingAsset['name']) {
         this.name = name
@@ -24,11 +25,17 @@ export default class UnderlyingAssetBuilder implements IUnderlyingAssetBuilder {
         return this
     }
 
+    public setDividendYield(dividendYield: number): IUnderlyingAssetBuilder {
+        this.dividendYield = dividendYield
+
+        return this
+    }
+
     public build(): IUnderlyingAsset {
         this.validate()
-        const { name, volatility, price } = this
+        const { name, volatility, price, dividendYield } = this
 
-        return new UnderlyingAsset(name!, volatility!, price!)
+        return new UnderlyingAsset(name!, volatility!, price!, dividendYield!)
     }
 
     private validate() {

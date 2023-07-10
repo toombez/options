@@ -16,6 +16,11 @@ export interface IUnderlyingAsset {
      * Underlying asset volatility
      */
     volatility: number
+
+    /**
+     * Dividend yield
+     */
+    dividendYield: number
 }
 
 /**
@@ -41,6 +46,8 @@ export interface IUnderlyingAssetBuilder {
     setVolatility(
         volatility: IUnderlyingAsset['volatility']
     ): IUnderlyingAssetBuilder
+
+    setDividendYield(dividendYield: number): IUnderlyingAssetBuilder
 
     /**
      * Build underlying asset

@@ -5,5 +5,6 @@ export default class UnderlyingAsset implements IUnderlyingAsset {
         public name: string,
         public volatility: number,
         public price: number,
+        public dividendYield: number = 0,
     ) {}
 }
