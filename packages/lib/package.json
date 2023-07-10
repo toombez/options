@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsup src/index.ts --dts",
     "dev": "yarn run build --watch"
