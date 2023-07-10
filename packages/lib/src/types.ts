@@ -143,3 +143,30 @@ export interface IOptionBuilder {
 
     build(): IOption
 }
+
+export interface IModel {
+    /**
+     * Option put price
+     */
+    readonly putPrice: number
+
+    /**
+     * Option call price
+     */
+    readonly callPrice: number
+
+    /**
+     * Option
+     */
+    readonly option: IOption
+
+    /**
+     * Days in year
+     */
+    readonly DAYS_IN_YEAR: number
+
+    /**
+     * Percentage time delta
+     */
+    readonly percentageTimeDelta: number
+}
