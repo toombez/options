@@ -1,22 +1,7 @@
 use chrono::{DateTime, Utc};
-use refinement::{Predicate, Refinement};
+use refinement::Refinement;
 use crate::asset::UnderlyingAsset;
-
-pub struct FloatInRangeFromZeroToOneHundred;
-
-impl Predicate<f32> for FloatInRangeFromZeroToOneHundred {
-    fn test(x: &f32) -> bool {
-        (0.0..100.0).contains(x)
-    }
-}
-
-pub struct FloatMoreThanZero;
-
-impl Predicate<f32> for FloatMoreThanZero {
-    fn test(x: &f32) -> bool {
-        *x > 0.0
-    }
-}
+use crate::utils::{FloatInRangeFromZeroToOneHundred, FloatMoreThanZero};
 
 pub type RiskFreeInterestRate = Refinement<
     f32,
@@ -41,16 +26,12 @@ pub enum FinanceOptionType {
     Put,
 }
 
+#[derive(Debug, Clone)]
 pub struct FinanceOption {
     pub option_type: FinanceOptionType,
-}
-
-impl FinanceOption {
-    pub fn create_put() -> Self {
-        Self { option_type: FinanceOptionType::Put }
-    }
-
-    pub fn create_call() -> Self {
-        Self { option_type: FinanceOptionType::Call }
-    }
+    pub underlying_asset: UnderlyingAsset,
+    pub strike_price: f32,
+    pub risk_free_interest_rate: f32,
+    pub volatility: f32,
+    pub expiration_date: ExpirationDate,
 }
