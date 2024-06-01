@@ -1,12 +1,9 @@
-use refinement::Refinement;
-use crate::utils::FloatMoreThanZero;
+use derive_builder::Builder;
+use crate::utils::FloatFromZero;
 
-pub type UnderlyingAssetPrice = Refinement<
-    f32,
-    FloatMoreThanZero,
->;
+pub type UnderlyingAssetPrice = FloatFromZero;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Builder)]
 pub struct UnderlyingAsset {
     pub price: UnderlyingAssetPrice,
     pub name: String,
