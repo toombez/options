@@ -1,16 +1,10 @@
-// Now don't know how to implement Copy for this struct
-#[derive(Debug, Clone /*, Copy*/)]
+use derive_builder::Builder;
+use crate::utils::FloatFromZero;
+
+pub type UnderlyingAssetPrice = FloatFromZero;
+
+#[derive(Debug, Clone, Builder)]
 pub struct UnderlyingAsset {
-    pub current_price: isize,
+    pub price: UnderlyingAssetPrice,
     pub name: String,
-}
-
-impl UnderlyingAsset {
-    pub fn new(current_price: isize, name: &str) -> Self {
-        Self { current_price, name: name.to_string() }
-    }
-
-    pub fn new_anonymous_asset(current_price: isize) -> Self {
-        Self::new(current_price, "")
-    }
 }
