@@ -8,21 +8,21 @@ pub trait HiddenValue<T>: Sized {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct FloatInRangeFromZeroToOneHundred(f64);
+pub struct FloatFromZeroToOneHundred(f64);
 
-impl LowerBounded for FloatInRangeFromZeroToOneHundred {
+impl LowerBounded for FloatFromZeroToOneHundred {
     fn min_value() -> Self {
         Self(0.0)
     }
 }
 
-impl UpperBounded for FloatInRangeFromZeroToOneHundred {
+impl UpperBounded for FloatFromZeroToOneHundred {
     fn max_value() -> Self {
         Self(100.0)
     }
 }
 
-impl HiddenValue<f64> for FloatInRangeFromZeroToOneHundred {
+impl HiddenValue<f64> for FloatFromZeroToOneHundred {
     fn value(&self) -> f64 {
         self.0
     }
@@ -34,7 +34,7 @@ impl HiddenValue<f64> for FloatInRangeFromZeroToOneHundred {
         value >= min_value && value <= max_value
     }
 
-    fn parse(value: f64) -> Result<FloatInRangeFromZeroToOneHundred, Error> {
+    fn parse(value: f64) -> Result<FloatFromZeroToOneHundred, Error> {
         if Self::is_valid(value) {
             Ok(Self(value))
         } else {
