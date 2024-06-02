@@ -1,7 +1,6 @@
 use derive_builder::Builder;
-use crate::utils::FloatFromZero;
 
-pub type UnderlyingAssetPrice = FloatFromZero;
+use super::underlying_asset_price::UnderlyingAssetPrice;
 
 #[derive(Debug, Clone, Builder)]
 pub struct UnderlyingAsset {
