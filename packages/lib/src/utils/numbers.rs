@@ -39,6 +39,7 @@ impl <T> ParsedValue<T, Self> for FloatFromZero<T> where T: Float {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct FloatFromZeroToOneHundred<T = f64>(T) where T: Float;
 
 impl<T> LowerBounded for FloatFromZeroToOneHundred<T> where T: Float {
